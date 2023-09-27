@@ -1,0 +1,4 @@
+# created by virtualenv automatically
+venv
+.DS_Store
+db.sqlite3
