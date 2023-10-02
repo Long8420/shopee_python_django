@@ -1,13 +1,15 @@
-# created by virtualenv automatically
 venv
-.db.sqlite3
+src/db.sqlite3
+*.pyc
+.idea
+.vscode
 */*.pyc
 */*/*.pyc
+__pycache__/
 */migrations/*
 # ./src/static/*
 /__pycache__
-src/shop/__pycache__/settings.settings.cpython-311.pyc
+src/mydjango/__pycache__/settings.cpython-35.pyc
 # */static/
 .DS_Store
-.env
 **/.DS_Store
