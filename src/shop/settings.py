@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "order",
     "core",
     "rest_framework",
-    "CustomUser"
+    # "CustomUser"
 ]
 
 MIDDLEWARE = [
@@ -82,8 +82,12 @@ WSGI_APPLICATION = "shop.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "shop_django",
+        "USER": os.environ.get("PG_USER"),
+        "PASSWORD": os.environ.get("PG_PASSWORD"),
+        "HOST": os.environ.get("PG_HOST"),
+        "PORT": os.environ.get("PG_PORT"),
     }
 }
 
@@ -129,7 +133,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "CustomUser.CustomeUser"
+# AUTH_USER_MODEL = "CustomUser.CustomeUser"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
