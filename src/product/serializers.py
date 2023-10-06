@@ -9,7 +9,7 @@ class getAllProductSerializer(serializers.ModelSerializer):
 class getAllCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'title')
+        fields = '__all__'
 # C1 ke thua tu modelSerializer 
 # class ProductSerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -38,4 +38,21 @@ class ProductSerializer(serializers.Serializer):
         instance.category = validated_data.get('category', instance.category)
         instance.save()
         return instance
-   
+
+
+class CategoriSerializer(serializers.Serializer):
+   title = serializers.CharField(max_length=255)
+   slug = serializers.CharField(max_length=255)
+   description = serializers.CharField()
+
+   def create(self, validated_data):
+        return Category.objects.create(**validated_data)
+
+   def update(self, instance, validated_data):
+    # Cập nhật các trường của instance dựa trên validated_data
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.slug = validated_data.get('slug', instance.slug)
+        instance.active = validated_data.get('active', instance.active)
+        instance.save()
+        return instance
