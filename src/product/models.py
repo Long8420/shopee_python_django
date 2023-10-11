@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 
 class Category(models.Model):
@@ -18,7 +17,6 @@ class Product(models.Model):
     price = models.IntegerField(default=0)
     active = models.BooleanField(default=True)
     product_img = models.CharField(max_length=255, default='')
-
 
     def __str__(self):
         return self.title

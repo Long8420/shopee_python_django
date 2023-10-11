@@ -31,3 +31,5 @@ Create database bang tay
     - >> CREATE DATABASE myprojectdb WITH OWNER myprojectuser;
 Close all port 5432
     - sudo kill -kill $(sudo lsof -t -i :5432)
+from django.urls import get_resolver
+get_resolver().url_patterns
