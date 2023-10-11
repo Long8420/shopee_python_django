@@ -14,12 +14,31 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <link rel="shortcut icon" href="{% static 'homepage/images/favicon.jpg' %}" type="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title> Food </title>
     {% block cssblock %}
     {% endblock %}
 </head>
 <body>
     {% include 'homepage/navbar.html' %}
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" style="margin-bottom: auto;">
+          <strong>{{message}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+  
+      <script>
+        console.log("qqqq")
+        $(document).ready(function() {
+          setTimeout(() => {
+            $(".alert").alert("close");
+          }, 3000);
+        });
+      </script>
     {% block content %}
     {% endblock %}
     {% include 'homepage/footer.html' %}
