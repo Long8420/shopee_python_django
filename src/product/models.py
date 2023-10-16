@@ -35,10 +35,13 @@ class Category(models.Model):
     slug = models.CharField(max_length=100, default='')
     description = models.TextField(default='')
     active = models.BooleanField(default=True)
-    cate_img = models.ImageField(upload_to=user_directory_path, default="cate.jpg")
+    cate_img = models.ImageField(upload_to="cate", default="cate.jpg")
 
     def __str__(self):
         return self.title
+
+    def cate_image(self):
+      return mark_safe('<img src="%s" width="50" height="50"/> ' % ( self.cate_img.url))
 
 class Product(models.Model):
     title = models.CharField(max_length=255, default='')

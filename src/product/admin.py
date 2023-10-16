@@ -20,7 +20,7 @@ class wishListAdmin(admin.ModelAdmin):
 class AddressesAdmin(admin.ModelAdmin):
     list_display = ["user", "address", "status"]
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ["title", "description", "slug", "active"]
+    list_display = ["title", "description","cate_image" ,"slug", "active", ]
 # Register your models here.
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
