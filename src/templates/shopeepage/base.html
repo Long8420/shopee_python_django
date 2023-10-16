@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    {% block cssblock %}
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'shopeepage/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'shopeepage/css/font-awesome.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'shopeepage/css/elegant-icons.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'shopeepage/css/nice-select.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'shopeepage/css/jquery-ui.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'shopeepage/css/owl.carousel.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'shopeepage/css/slicknav.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'shopeepage/css/style.css'%}" type="text/css">
+    {% endblock %}
+
+</head>
+
+<body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    {% include 'shopeepage/navbar.html' %}
+    {% block content %}
+    {% endblock %}
+    {% include 'shopeepage/footer.html' %}
+    {% block jsblock %}
+    <!-- Js Plugins -->
+    <script src="{% static 'shopeepage/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'shopeepage/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'shopeepage/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'shopeepage/js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'shopeepage/js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'shopeepage/js/mixitup.min.js' %}"></script>
+    <script src="{% static 'shopeepage/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'shopeepage/js/main.js' %}"></script>
+    {% endblock %}
+</body>
+
+</html>
