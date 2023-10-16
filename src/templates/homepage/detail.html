@@ -1,0 +1,65 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+
+{% block cssblock %}
+<!-- bootstrap core css -->
+<link rel="stylesheet" type="text/css" href="{% static 'homepage/css/bootstrap.css' %}" />
+
+<!--owl slider stylesheet -->
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<!-- nice select  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+  integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ=="
+  crossorigin="anonymous" />
+<!-- font awesome style -->
+<link href="{% static 'homepage/css/font-awesome.min.css' %}" rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link href="{% static 'homepage/css/style.css' %}" rel="stylesheet" />
+<link href="{% static 'userAuths/css/style2.scss' %}" rel="stylesheet" />
+<!-- responsive style -->
+<link href="{% static 'homepage/css/responsive.css' %}" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<section class="about_section layout_padding" style="background: #e5dfbc;">
+    <div class="container  ">
+        <div class="row">
+            <div class="col-md-6 ">
+                <div class="img-box" >
+                    <img src="{{productDetail.image.url}}" style="max-width: 48%;" alt="">
+                </div>
+                <div class="img-box" style="margin-top: 20px; padding: 10p;" >
+                    <img src="{{productDetail.image.url}}" style="max-width: 15%;" alt="">
+                    <img src="{{productDetail.image.url}}" style="max-width: 15%;" alt="">
+                    <img src="{{productDetail.image.url}}" style="max-width: 15%;" alt="">
+                    <img src="{{productDetail.image.url}}" style="max-width: 15%;" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="detail-box">
+                    <div class="heading_container">
+                        <h2>
+                           {{productDetail.title}}
+                        </h2>
+                    </div>
+                    <p>
+                        {{productDetail.description}}
+                    </p>
+                    <div>
+                        <span>Gia: </span>
+                        <h2>
+                            {{productDetail.price}}
+                        </h2>
+                    </div>
+                    <a href="">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
