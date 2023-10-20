@@ -1,29 +1,5 @@
-{% extends 'homepage/base.html' %}
+{% extends 'shopeepage/base.html' %}
 {% load static %}
-
-{% block cssblock %}
-    <!-- Thêm các CSS riêng cho trang signin-up.html nếu cần -->
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'homepage/css/bootstrap.css' %}" />
-
-    <!--owl slider stylesheet -->
-    <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-    <!-- nice select  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
-    integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ=="
-    crossorigin="anonymous" />
-    <!-- font awesome style -->
-    <link href="{% static 'homepage/css/font-awesome.min.css' %}" rel="stylesheet" />
-    
-    <!-- Custom styles for this template -->    
-    <link href="{% static 'userAuths/css/style.css' %}" rel="stylesheet" />
-    <link href="{% static 'homepage/css/style.css' %}" rel="stylesheet" />
-    
-    <!-- responsive style -->
-    <link href="{% static 'homepage/css/responsive.css' %}" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -107,6 +83,3 @@
   
 {% endblock %}
 
-{% block jsblock %}
-    <!-- Thêm các script JS riêng cho trang signin-up.html nếu cần -->
-{% endblock %}
