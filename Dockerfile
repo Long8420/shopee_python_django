@@ -9,6 +9,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 # Cài đặt Pillow
 RUN pip install Pillow
+RUN pip install django-ckeditor
 COPY . .
 
 EXPOSE 8000

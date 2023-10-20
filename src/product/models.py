@@ -4,7 +4,7 @@ from django.utils.html import mark_safe
 from django.utils.html import format_html
 # Create your models here.
 from userauths.models import User
-
+from ckeditor_uploader.fields import RichTextUploadingField
 STATUS_CHOICES = (
     ("process", "Processing"),
     ("shipped", "Shipped"),
@@ -33,7 +33,7 @@ def user_directory_path(instance,filename):
 class Category(models.Model):
     title = models.CharField(default='', max_length=100)
     slug = models.CharField(max_length=100, default='')
-    description = models.TextField(default='')
+    description = RichTextUploadingField(default='day la danh muc')
     active = models.BooleanField(default=True)
     cate_img = models.ImageField(upload_to="cate", default="cate.jpg")
 
@@ -46,7 +46,7 @@ class Category(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=255, default='')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    description = models.TextField(default='')
+    description = RichTextUploadingField(default='chi tiet san pham')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
@@ -58,6 +58,7 @@ class Product(models.Model):
     updated = models.DateField(null=True, blank=True)
     price = models.DecimalField(max_digits=9, decimal_places=3, default="1000")
     old_price =models.DecimalField(max_digits=9, decimal_places=3, default="1000")
+    is_sale = models.BooleanField(default=False)
     class Meta:
         verbose_name = "Product"
 
@@ -68,7 +69,7 @@ class Product(models.Model):
         return mark_safe('<img src="%s" width="50" height="50"/> ' % ( self.image.url))
 
     def get_precentage(self):
-        new_price = (self.price / self.old_price) * 100
+        new_price = ((self.old_price - self.price) / (self.old_price))* 100
         return new_price
 
 
@@ -93,7 +94,7 @@ class Variation(models.Model):
 class Vendor(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to=user_directory_path, default="vendor.jpg")
-    description = models.TextField(null=True, blank=True)
+    description = RichTextUploadingField(null=True, blank=True)
     address = models.CharField(max_length=200)
     contact = models.CharField(max_length=200)
     chat_resp_time = models.CharField(max_length=200)
@@ -148,3 +149,5 @@ class Addresses(models.Model):
 
     class Meta:
         verbose_name = "Address"
+
+
