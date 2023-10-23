@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="{% static 'homepage/images/favicon.jpg' %}" type="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title> Food </title>
+    {% block cssblock %}
+    {% endblock %}
+</head>
+<body>
+    {% include 'homepage/navbar.html' %}
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" style="margin-bottom: auto;">
+          <strong>{{message}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+  
+      <script>
+        console.log("qqqq")
+        $(document).ready(function() {
+          setTimeout(() => {
+            $(".alert").alert("close");
+          }, 3000);
+        });
+      </script>
+    {% block content %}
+    {% endblock %}
+    {% include 'homepage/footer.html' %}
+    {% block jsblock %}
+    {% endblock %}
+</body>
+</html>

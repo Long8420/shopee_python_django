@@ -1,0 +1,139 @@
+@import "bourbon";
+
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400);
+
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+  margin: 0 8px 0 0;
+  width: 24px;
+  text-align: center;
+  display: inline-block;
+  border: none;
+}
+
+$tile-height: 24px;
+
+%tile{
+  background: #fff;
+  display: block;
+  height: $tile-height;
+  padding: 8px;
+}
+
+body{
+  background: #fff;
+  font-family: 'Lato';
+  font-weight: 400;
+}
+
+a{
+  text-decoration: none;
+  color: #49bcbe;
+}
+
+.Dropdown{
+  border: 2px solid #ddd;
+  cursor: pointer;
+  overflow: hidden;
+  width: 200px;
+  @include border-top-radius(4px);
+  @include border-bottom-radius(4px);
+  &-profile{
+    position: relative;
+    @extend %tile;
+    .Photo{
+      background: #ddd;
+      display: inline-block;
+      vertical-align: middle;
+      @include border-top-radius(2px);
+      @include border-bottom-radius(2px);
+      @include size(24px);
+    }
+    .Name{
+      display: inline-block;
+      line-height: $tile-height;
+      padding: 0 0 0 5px;
+      vertical-align: middle;
+      width: 120px;
+    }
+  }
+  &-nav{
+    height: 0;
+    overflow: hidden;
+    @include transition(height 0.2s $ease-out-expo);
+    ul{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li{
+      position: relative;
+    }
+    li a{
+      color: #ccc;
+      @include transition(color 0.3s ease);
+      &:hover{
+        color: #49bcbe;
+      }
+    }
+    li .OptionLink{
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      height: 22px;
+      font-size: 18px;
+      margin: auto;
+      z-index: 5;
+    }
+    li .NavLink{
+      line-height: $tile-height;
+      @extend %tile;
+    }
+  }
+  &.is-expanded nav{
+    height: 202px;
+  }
+}
+
+.Dropdown-group{
+  border-top: 1px solid #ddd;
+}
+
+.Dropdown.is-expanded .MenuIcon{
+  &-line:nth-child(1){
+    top: 50%;
+  }
+  &-line:nth-child(3){
+    top: 50%;
+  }
+}
+
+.MenuIcon{
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  position: absolute;
+  right: 14px;
+  @include size(12px 10px);
+  &-line{
+    background: #49bcbe;
+    display: inline-block;
+    height: 2px;
+    margin: auto;
+    position: absolute;
+    width: 100%;
+    @include transition(all 0.2s ease-in-out);
+    &:nth-child(1){
+      top: 0;
+    }x
+    &:nth-child(2){
+      top: 50%;
+    }
+    &:nth-child(3){
+      top: 100%;
+    }
+  }
+}
