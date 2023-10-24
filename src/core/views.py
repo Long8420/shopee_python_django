@@ -109,5 +109,47 @@ def filter_product(request):
     context ={
         "products": products
     }
-    data = render_to_string("shopeepage/async/product_detail.html", context)
+    data = render_to_string("shopeepage/async/product_list.html", context)
     return JsonResponse({"data": data})
+
+
+def add_to_cart(request):
+
+    cart_product = {}
+
+    cart_product[str(request.GET['id'])] = {
+        'title': request.GET['title'],
+        'qty': request.GET['qty'],
+        'price': request.GET['price'],
+        'image': request.GET['image'],
+    }
+
+    if 'cart_data_obj' in request.session:
+        if str(request.GET['id']) in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            cart_data[str(request.GET['id'])]['qty'] = int(cart_product[str(request.GET['id'])]['qty'])
+            cart_product.update(cart_data)
+            request.session['cart_data_obj'] = cart_data
+        else:
+            cart_data = request.session['cart_data_obj']
+            cart_data.update(cart_product)
+            request.session['cart_data_obj'] = cart_data
+    else:
+        request.session['cart_data_obj'] = cart_product
+    return JsonResponse(
+        {"data": request.session['cart_data_obj'],
+         'totalcartitem': len(request.session['cart_data_obj'])
+        })
+
+def cart_view(request):
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for prouct_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+        return render(request, 'shopeepage/cart-list.html', {
+        "cart_data" : request.session['cart_data_obj'],
+        "totalcartitem": len(request.session['cart_data_obj']),
+        "cart_total_amount" : cart_total_amount    
+    })
+    else:
+        return render(request, 'shopeepage/index.html')

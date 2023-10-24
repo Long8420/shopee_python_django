@@ -29,7 +29,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__pic">
                     <div class="product__details__pic__item">
-                        <img class="product__details__pic__item--large" src="{{productDetail.image.url}}" alt="">
+                        <img class="product__details__pic__item--large" id ="current-product-image" src="{{productDetail.image.url}}" alt="">
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
                         <img data-imgbigurl="{{productDetail.image.url}}" src="{{productDetail.image.url}}" alt="">
@@ -65,9 +65,10 @@
                             </div>
                             <input type="hidden" value="{{productDetail.id}}" class="product-id">
                             <input type="hidden" value="{{productDetail.title}}" class="product-title">
+                            <input type="hidden" value="{{productDetail.image.url}}" class="product-image">
                         </div>
                     </div>
-                    <button type="submit" id="add-to-cart-btn" class="primary-btn">
+                    <button type="submit" id="add-to-cart-btn" class="primary-btn" style="border: none;">
 
                         ADD TO CARD</button>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
@@ -148,9 +149,9 @@
                                                         <span class="" style="margin-right: 20px;">
                                                             {{r.date|date:"d M, Y"}}</span>
                                                     </div>
-                                                    <div>
+                                                    <div class="product__details__rating">
                                                         {%for star in r.rating|ljust:r.rating%}
-                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star" style="color: #EDBB0E;"></i>
                                                         {%endfor%}
                                                     </div>
                                                 </div>
@@ -178,7 +179,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <div class="form-group">
+                                                        <div class="product__details__rating">
                                                             {{review_form.rating}}
                                                         </div>
                                                     </div>

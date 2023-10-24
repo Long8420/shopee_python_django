@@ -45,10 +45,10 @@ $("#commentform").submit(function (e) {
 
 
 
-// 
 $(document).ready(function () {
     $(".filter-checkbox").on("click", function (e) {
         let filter_object = {}
+        let product_count = 0
         $(".filter-checkbox:checked").each(function () {
             let filter_value = $(this).val()
             let filter_key = $(this).data("filter")
@@ -67,46 +67,53 @@ $(document).ready(function () {
                 },
                 success: function (res) {
                     console.log("Success: " + res);
+                    console.log("data: " + res.data);
                     $("#filter-product").html(res.data);
+                    var productCount = $(res.data).find('.product__item').length;
+                    console.log("Product count: " + productCount);
                 },
                 error: function (error) {
                     console.error("Error: " + error.statusText);
                 }
             });
         }
-        $("#max")
     });
-});
+    // });
 
 
-// add to cart
-$("#add-to-cart-btn").on("click", function(){
-    let quantity = $("#product-quatity").val()
-    let product_title = $(".product-title").val()
-    let product_id = $(".product-id").val()
-    let product_price = $("#current-product-price").text()
-    let this_val = $(this)
-    console.log("quality", quantity)
-    console.log("product_title", product_title)
-    console.log("product_id", product_id)
-    console.log("curee", product_price)
-    console.log("val", this_val)
+    // add to cart
+    $("#add-to-cart-btn").on("click", function () {
+        let this_val = $(this)
+        let quantity = $("#product-quatity").val()
+        let product_title = $(".product-title").val()
+        let product_id = $(".product-id").val()
+        let product_price = $("#current-product-price").text()
+        let product_image = $(".product-image").val()
+        // console.log("quality", quantity)
+        // console.log("product_title", product_title)
+        // console.log("product_id", product_id)
+        // console.log("curee", product_price)
+        // console.log("val", this_val)
+        // console.log("imga", product_image)
 
-    $.ajax({
-        url: '/add-to-cart',
-        dataType: 'json',
-        data: {
-            'id': product_id,
-            'qty': quantity,
-            'title': product_title,
-            'price': product_price,
-        },
-        beforeSend: function(){
-            console.log(" add product")
-        },
-        success: function( response ){
-            this_val.html("Item add cart")
-            console.log("success final")
-        }
+        $.ajax({
+            url: '/add-to-cart',
+            dataType: 'json',
+            data: {
+                'id': product_id,
+                'qty': quantity,
+                'title': product_title,
+                'price': product_price,
+                'image': product_image
+            },
+            beforeSend: function () {
+                console.log(" add product")
+            },
+            success: function (response) {
+                this_val.html("Item add cart")
+                console.log("success final")
+                $(".cart-item.count").text(response.totalcartitem)
+            }
+        })
     })
-})
+});
