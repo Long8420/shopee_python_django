@@ -5,6 +5,8 @@ from core.forms import ProductReviewForm
 from django.db.models import Avg
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from cart.models import  CartItem, Cart
 # Create your views here.
 
 
@@ -153,3 +155,81 @@ def cart_view(request):
     })
     else:
         return render(request, 'shopeepage/index.html')
+
+
+def delete_item_from_cart(request):
+    product_id  = str(request.GET['id'])
+    if 'cart_data_obj' in request.session:
+        if product_id in request.session['cart_data_obj']:
+            cart_data  = request.session['cart_data_obj']
+            del request.session['cart_data_obj'][product_id]
+            request.session['cart_total_amount'] = cart_data
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for prouct_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+    
+    context = render_to_string("shopeepage/async/cart_list.html", {"cart_data" : request.session['cart_data_obj'],
+        "totalcartitem": len(request.session['cart_data_obj']),
+        "cart_total_amount" : cart_total_amount})
+    return JsonResponse({"data": context, 'totalcartitem' :  len(request.session['cart_data_obj'])})
+
+
+# update cart
+def update_from_cart(request):
+    product_id  = str(request.GET['id'])
+    product_quantity = request.GET['qty']
+    if 'cart_data_obj' in request.session:
+        if product_id in request.session['cart_data_obj']:
+            cart_data  = request.session['cart_data_obj']
+            cart_data[str(request.GET['id'])]['qty'] = product_quantity
+            request.session['cart_total_amount'] = cart_data
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for prouct_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+    
+    context = render_to_string("shopeepage/async/cart_list.html", {"cart_data" : request.session['cart_data_obj'],
+        "totalcartitem": len(request.session['cart_data_obj']),
+        "cart_total_amount" : cart_total_amount})
+    return JsonResponse({"data": context, 'totalcartitem' :  len(request.session['cart_data_obj'])})
+
+def checkout_view(request):
+    cart_total_amount = 0
+    total_amount = 0
+    if 'cart_data_obj' in request.session:
+        # getting total amoint for payaal amount
+        for prouct_id, item in request.session['cart_data_obj'].items():
+            total_amount += int(item['qty']) * float(item['price'])
+        order = Cart.objects.create(
+            user = request.user,
+            price = total_amount,
+        )
+        print(order)
+        # getting total amount for cart
+        for prouct_id, item in request.session['cart_data_obj'].items():
+            total_amount += int(item['qty']) * float(item['price'])
+            cart_order_product = CartItem.objects.create(
+                cart=order,
+                invoices_no="INVOICE_NO-" + str(order.id),  
+                item=item['title'],
+                image=item['image'],
+                quanlity=item['qty'],
+                price=item['price'],
+                total=float(item['qty']) * float(item['price']),
+            )
+        return render(request, 'shopeepage/checkout.html', {"cart_data" : request.session['cart_data_obj'],
+        "totalcartitem": len(request.session['cart_data_obj']),
+        "cart_total_amount" : cart_total_amount})
+
+
+@login_required
+def order_complete(request):
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for prouct_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+
+        return render(request, 'shopeepage/order-complete.html', {"cart_data" : request.session['cart_data_obj'],
+        "totalcartitem": len(request.session['cart_data_obj']),
+        "cart_total_amount" : cart_total_amount})

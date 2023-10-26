@@ -164,3 +164,4 @@ CKEDITOR_CONFIGS = {
         ),
     }
 }
+LOGIN_URL = 'userAuths:sign-in'

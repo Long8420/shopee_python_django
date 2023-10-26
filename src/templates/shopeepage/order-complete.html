@@ -1,0 +1,98 @@
+{% extends 'shopeepage//base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="{% static 'shopeepage/img/breadcrumb.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Order Complete Bill</h2>
+                    <div class="breadcrumb__option">
+                        <a href="{% url 'core:index' %}">Home</a>
+                        <a href="./index.html">Cart</a>
+                        <span>Order Complete</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<section class="shoping-cart spad">
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="https://sparksuite.github.io/simple-html-invoice-template/images/logo.png"
+                                    style="width: 100%; max-width: 300px" />
+                            </td>
+
+                            <td>
+                                Invoice #: 123<br />
+                                Created: January 1, 2023<br />
+                                Due: February 1, 2023
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                Sparksuite, Inc.<br />
+                                12345 Sunny Road<br />
+                                Sunnyville, CA 12345
+                            </td>
+
+                            <td>
+                                Acme Corp.<br />
+                                {{request.user|title}}<br />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="heading">
+                <td>Payment Method</td>
+            </tr>
+
+            <tr class="details">
+                <td>Check</td>
+                <td>1000</td>
+            </tr>
+
+            <tr class="heading">
+                <td>Item</td>
+
+                <td>Price</td>
+            </tr>
+            {%for product_id,item in cart_data.items%}
+            <tr class="item">
+                <td>{{item.title}}</td>
+
+                <td> $ {% widthratio item.price 1 item.qty%},000 VND</td>
+            </tr>
+            {%endfor%}
+            <tr class="total">
+                <td></td>
+                <td>Total: ${{cart_total_amount|floatformat:2}}0 VND</td>
+            </tr>
+        </table>
+        <div>
+            <button type="button" class="btn btn-primary">Print</button>
+            <button type="button" class="btn btn-success">Download</button>
+        </div>
+    </div>
+</section>
+{%endblock%}
