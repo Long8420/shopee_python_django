@@ -22,7 +22,7 @@
 
 <!-- Shoping Cart Section Begin -->
 <section class="shoping-cart spad">
-    <div class="container">
+    <div class="container" id="cart-list">
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__table">
@@ -50,7 +50,7 @@
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
                                         <div class="pro-qty">
-                                            <input type="text" value="{{item.qty}}">
+                                            <input type="text" value="{{item.qty}}" class="product-qty-{{product_id}}">
                                         </div>
                                     </div>
                                 </td>
@@ -58,9 +58,12 @@
                                     $ {% widthratio item.price 1 item.qty%}
                                 </td>
                                 <td class="shoping__cart__item__close">
-                                    <button class="delete-product icon_close" style="border: none;" data-product="{{product_id}}">
-                                        <!-- <span class="icon_close"></span> -->
-                                    </button>
+                                    <button class="delete-product icon_close" style="border: none;"
+                                        data-product="{{product_id}}"></button>
+                                </td>
+                                <td class="shoping__cart__total">
+                                    <button class="update-product icon_refresh" style="border: none;"
+                                        data-product="{{product_id}}"></button>
                                 </td>
                             </tr>
                             {%endfor%}
@@ -96,7 +99,9 @@
                         <!-- <li>Discount <span> -30.000</span></li> -->
                         <li>Total <span>${{cart_total_amount|floatformat:2}}</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    {%if cart_total_amount %}
+                    <a href="{% url 'core:checkout'%}" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    {%endif%}
                 </div>
             </div>
         </div>

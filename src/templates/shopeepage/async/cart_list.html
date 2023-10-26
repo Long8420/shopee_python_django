@@ -1,0 +1,86 @@
+<div class="container" id="cart-list">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="shoping__cart__table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="shoping__product">Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for product_id,item in cart_data.items%}
+                        <tr>
+                            <!-- {{cart_data.items}} -->
+                            <td class="shoping__cart__item">
+                                <img src="{{item.image}}" style="max-width: 100px;" alt="">
+                                <h5>{{item.title}}</h5>
+                            </td>
+                            <td class="shoping__cart__price">
+                                ${{item.price| floatformat:2 }}
+                            </td>
+                            <td class="shoping__cart__quantity">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input type="text" value="{{item.qty}}">
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="shoping__cart__total">
+                                $ {% widthratio item.price 1 item.qty%}
+                            </td>
+                            <td class="shoping__cart__total">
+                                <button class="update-product icon_refresh" style="border: none;"
+                                    data-product="{{product_id}}"></button>
+                            </td>
+                            <td class="shoping__cart__item__close">
+                                <button class="delete-product icon_close" style="border: none;"
+                                    data-product="{{product_id}}">
+                                    <!-- <span class="icon_close"></span> -->
+                                </button>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="shoping__cart__btns">
+                <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                    Upadate Cart</a>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="shoping__continue">
+                <div class="shoping__discount">
+                    <h5>Discount Codes</h5>
+                    <form action="#">
+                        <input type="text" placeholder="Enter your coupon code">
+                        <button type="submit" class="site-btn">APPLY COUPON</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="shoping__checkout">
+                <h5>Cart Total</h5>
+                <ul>
+                    <li>Subtotal <span>${{cart_total_amount|floatformat:2}}</span></li>
+                    <!-- <li>Discount <span> -30.000</span></li> -->
+                    <li>Total <span>${{cart_total_amount|floatformat:2}}</span></li>
+                </ul>
+                {%if cart_total_amount %}
+                <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 
 from django.urls import path
-from .views import HomeView,view_product_detail,view_shop_list,ajax_add_review,search_view,filter_product,add_to_cart,cart_view
+from .views import HomeView,view_product_detail,view_shop_list,ajax_add_review,search_view,filter_product,add_to_cart,cart_view,delete_item_from_cart,update_from_cart,checkout_view,order_complete
 
 app_name = "core"
 urlpatterns = [
@@ -20,4 +20,14 @@ urlpatterns = [
     # Cart view
     path("cart-list/",  cart_view, name="cart-list"),
     
+    # delete cart
+    path("delete-from-cart/", delete_item_from_cart, name="delete-from-cart"),
+    # update cart
+    path("update-cart/", update_from_cart, name="update-cart"),
+    #  payment
+    path("checkout/", checkout_view, name="checkout"),
+    path("order-complete/", order_complete, name="order-complete"),
+
+
+
 ]
